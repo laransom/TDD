@@ -4,7 +4,7 @@ require_relative '../lib/taxes.rb'
 describe Taxes do
 
   describe 'tax return' do
-    let(:person) {Taxes.new('Sterling', 'Archer', 500000, 100, 30)}
+    let(:person) {Taxes.new('Sterling', 'Archer', 500000.0, 100.0, 30.0)}
 
     it 'First name is a string' do
       expect(person.first_name.class).to eq(String)
@@ -15,19 +15,26 @@ describe Taxes do
     end
 
     it 'Income is greater than zero' do
-      expect(person.annual_income.to_f).should > 0
+      expect(person.annual_income.class).to eq(Float)
+      expect(person.annual_income).should >= 0
     end
 
     it 'Tax paid is greater than zero' do
-      expect(person.tax_paid.to_f).should > 0
+      expect(person.tax_paid.class).to eq(Float)
+      expect(person.tax_paid).should >= 0
     end
 
     it 'Tax rate is greater than zero' do
-      expect(person.tax_rate).should > 0
+      expect(person.tax_rate.class).to eq(Float)
+      expect(person.tax_rate).should >= 0
     end
 
     it 'Tax rate is less than one' do
-      expect(person.tax_rate).should < 1
+      expect(person.tax_rate).should <= 1
+    end
+
+    it 'Print out is a string' do
+      expect(person.print_out.class).to eq(String)
     end
   end
 
@@ -44,15 +51,3 @@ describe Taxes do
 
 end
 
-#   it 'Last name is a string' do
-#     expect(CreateData.new.pull_from_csv[0][:last_name].class).to eq(String)
-#   end
-#   it 'Income is greater than zero' do
-#      expect(CreateData.new.pull_from_csv[0][:annual_income]).should > 0
-#   end
-#   it 'Tax Rate is greater than zero' do
-#     expect(CreateData.new.pull_from_csv[0][:tax_rate]).should > 0
-#   end
-#   it 'Tax paid is greater than zero' do
-#     expect(CreateData.new.pull_from_csv[0][:tax_rate]).should > 0
-#   end
